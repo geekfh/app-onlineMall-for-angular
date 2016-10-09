@@ -1,0 +1,19 @@
+<div class="screen_cover" id="agreement_window" style="display: block">
+		<span class="close_window" id="close" ng-click="close()">
+			<img src="image/close.png"/>
+		</span>
+    <div class="order_detail_chioce" style="overflow-y: auto;">
+        <div class="order_detail_chioce" style="background-color:#ffffff; padding: 0.5rem 0.3rem;overflow-y: auto;">
+            <nav class="noticeNav clearfix">
+                <a href="javascript:" ng-class="{noticeNav_active:active_tab==0}" ng-click="insureNoticeChange(0)" class="pull-left">投保须知</a>
+                <a href="javascript:" ng-class="{noticeNav_active:active_tab==1}" ng-click="insureNoticeChange(1)" class="pull-right">保险条款</a>
+            </nav>
+            <div class="noticeContent" id="noticeWindow" ng-show="activeTabContent"></div>
+            <div class="noticeContent" id="noticeWindowTwo" ng-hide="activeTabContent" style="padding-top: 0.3rem;padding-left: 0.2rem;">
+                <li ng-repeat="w in wordTittleList" ng-click="hrefTo(w)">{{w.filename}}</li>
+            </div>
+
+        </div>
+
+    </div>
+</div>

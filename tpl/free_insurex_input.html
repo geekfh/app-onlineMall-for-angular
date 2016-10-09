@@ -1,0 +1,144 @@
+<!--
+
+
+<section class="mobileScreen" style="padding-top: 0.3rem;padding-bottom: 0.5rem;" id="input_box">
+
+    <p style="width: 100%;height: 0.8rem;line-height: 0.8rem;padding: 0 0.35rem;font-size: 0.4rem;color:#24b98d;background-color: #fff">泰康人寿—<span>{{prodName}}</span></p>
+
+    <form name="userForm"  novalidate>
+        <p class="info_tittle">领取人</p>
+        <div class="insurance_person_info">
+            <ul ng-class="{'error':userForm.name.$touched && userForm.name.$invalid}">
+                <li  >
+                    <label>姓名</label>
+                    <input type="text" name="name"  class="pull-right" ng-model="user.name" ng-blur="submitButtonChange()"
+                            id="name" ng-pattern="/^[\u0391-\uFFE5]+$/i"  minlength="2" maxlength="8" placeholder="请输入被保险人名字" required >
+                </li>
+                <li  ng-class="{'error':userForm.dID.$invalid && userForm.dID.$touched}">
+                    <label>证件号码：</label>
+                    <input type="text" name="dID" class="pull-right"
+                           ng-model="user.id_number" placeholder="请输入身份证号码"
+                            id="id_number" ng-pattern="/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/" maxlength="18" required/>
+                </li>
+            </ul>
+
+        </div>
+        <p class="info_tittle">联系人</p>
+        <div class="insurance_person_info">
+            <ul>
+                <li >联系电话：
+                    <input type="text" name="contactsTel" ng-class="{'error':userForm.contactsTel.$touched && userForm.contactsTel.$invalid}"
+                           placeholder="请输入联系方式" class='pull-right' ng-model="user.Mobile" ng-minlength="11" maxlength="11"
+                           id="Mobile"  ng-pattern="/^0?(13[0-9]|15[012356789]|17[0-9]|18[0-9]|14[57])[0-9]{8}$/i" required/>
+                </li>
+                <li  ng-class="{'error':userForm.code.$touched && userForm.code.$invalid}">
+                    <label>短信验证码</label>
+                    <input type="text" name="code" id="verifyCode" placeholder="短信验证码"  style="height: 95%;width: 40%;" ng-model="user.codeNum"  ng-minlength="4" maxlength="4"  required/>
+                    <button class="sendVerCode" ng-click="getCode()"  ng-bind="paracont"  ng-class="{grayBtn:sending}" ng-disabled="sending||userForm.contactsTel.$invalid">获取验证码</button>
+
+                </li>
+            </ul>
+        </div>
+
+
+        <div class="protocol_group">
+            <label ng-model="lab_txt">
+                <a class="protocol_txt" id="cbox" ng-class="{checkBox_active: cbox_checked}" ng-click="change_img()"></a>
+                本人已阅读并同意《保险条款》和《投保须知》
+            </label>
+        </div>
+
+        <button type="submit" id="sendBtn" ng-disabled="userForm.$invalid"
+                class="pay_it_now" ng-class={"dis-btn":userForm.$invalid}
+                ng-click="InfoSubmit(user)" ng-hide="submitting">提交</button>
+        <button type="submit" disabled
+                class="pay_it_now grayBtn" style="position: relative;" ng-show="submitting">提交中，请稍等</button>
+
+    </form>
+</section>
+
+
+-->
+<section class="mobileScreen" ng-show="freePutDiv"  style="padding-top: 0.3rem;padding-bottom: 0.5rem;" id="input_box">
+
+    <p style="width: 100%;height: 0.8rem;line-height: 0.8rem;padding: 0 0.35rem;font-size: 0.4rem;color:#24b98d;background-color: #fff">泰康人寿—<span>{{prodName}}</span></p>
+
+    <form name="userForm"  novalidate>
+        <p class="info_tittle">领取人</p>
+        <div class="insurance_person_info">
+            <ul>
+                <li ng-class="{'error':userForm.name.$touched && userForm.name.$invalid}" >
+                    <label>姓名</label>
+                    <input type="text" name="name"  class="pull-right" ng-model="user.name"
+                          id="name" ng-pattern="/^[\u0391-\uFFE5]+$/i"  minlength="2" maxlength="8" placeholder="请输入被保险人名字" required >
+                </li>
+                <li ng-class="{'error':userForm.dID.$invalid && userForm.dID.$touched}" >
+                    <label>证件号码：</label>
+                    <input type="text" name="dID" class="pull-right"
+                           id="id_number"  ng-model="user.id_number" placeholder="请输入身份证号码"
+                           ng-pattern="/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/" maxlength="18" required/>
+                </li>
+            </ul>
+
+        </div>
+        <p class="info_tittle">联系人</p>
+        <div class="insurance_person_info">
+            <ul>
+                <li ng-class="{'error':userForm.contactsTel.$touched && userForm.contactsTel.$invalid}">联系电话：
+                    <input type="text" name="contactsTel"
+                           id="Mobile"  placeholder="请输入联系方式" class='pull-right' ng-model="user.Mobile" ng-minlength="11" maxlength="11"
+                           ng-pattern="/^0?(13[0-9]|15[012356789]|17[0-9]|18[0-9]|14[57])[0-9]{8}$/i" required/>
+                </li>
+                <li ng-class="{'error':userForm.code.$touched && userForm.code.$invalid}" >
+                    <label>短信验证码</label>
+                    <input type="text" name="code" placeholder="短信验证码" style="height: 95%;width: 40%;" ng-model="user.codeNum"  ng-minlength="4" maxlength="4"  required/>
+                    <!--<div class="sendVerCode" ng-click="getCode()" id="codeBtn">获取验证码</div>-->
+                    <button class="sendVerCode" ng-click="getCode()"  ng-bind="paracont" ng-disabled="sending" ng-class="{grayBtn:sending}">获取验证码</button><!--ng-disabled="sending||userForm.contactsTel.$invalid"-->
+
+                </li>
+            </ul>
+        </div>
+
+
+        <div class="protocol_group">
+            <label ng-model="lab_txt">
+                <a class="protocol_txt" id="cbox" ng-class="{checkBox_active: cbox_checked}" ng-click="change_img()"></a>
+                本人已阅读并同意《保险条款》和《投保须知》
+            </label>
+        </div>
+
+        <button type="submit" id="sendBtn" ng-disabled="userForm.$invalid"
+                class="pay_it_now" ng-class={"dis-btn":userForm.$invalid}
+                ng-click="InfoSubmit(user)" ng-hide="submitting">提交</button>
+
+        <button type="submit" disabled
+                class="pay_it_now grayBtn" style="position: relative;" ng-show="submitting">提交中，请稍等</button>
+
+    </form>
+</section>
+
+<div class="screen_cover" ng-show='putOk' style="display: block; background-color:white; opacity: 1;"><!---->
+    <!--<div style=" border-radius: 0;position:fixed;height:1.5rem;top:20%;width:100%;padding:0 10%; z-index: 0;" >
+        <p class="hintContent">投保成功</p>
+        <p class="hintOk" ng-click="yes()">确定</p>
+    </div>-->
+    <div class="result_bg">
+        <div class="put_pic"><img src="image/put_sucess.png" /></div>
+        <div class="put_word1">您已成功领取保单一年的</div>
+        <div class="put_word2">将在一个工作日内向你的手机发关信息。保单生效用户可在“我的保单”查询</div>
+        <div class="put_btn" ng-click="putSuccess()">完成</div>
+    </div>
+</div>
+
+<div class="screen_cover" ng-show='putNotOk' style="display: block; background-color:white; opacity: 1;"><!---->
+    <!--<div style=" border-radius: 0;position:fixed;height:1.5rem;top:20%;width:100%;padding:0 10%; z-index: 0;" >
+        <p class="hintContent">投保失败</p>
+        <p class="hintOk" ng-click="putFailure()">确定</p>
+    </div>-->
+    <div class="result_bg">
+        <div class="put_pic"><img src="image/put_failure.png" /></div>
+        <div class="put_word1">您投保失败</div>
+        <div class="put_word2">请重新投保</div>
+        <div class="put_btn" ng-click="putFailure()">确定</div>
+    </div>
+</div>

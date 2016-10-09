@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+<title></title>
+</head>
+<body></body>
+<script>
+(function(ROOT,appId){
+    function getCode(){
+		var a=location.origin+ROOT+'index.html';
+		window.location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appId+"&redirect_uri="+encodeURIComponent(a)+"&response_type=code&scope=snsapi_base&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect"
+	}
+    function intoHref(a){
+    	var b=location.origin+ROOT+"start.html#/";
+    	window.location.href=b;
+		/*var b=window.location.href.split("index.html")[0] + "start.html";
+		window.location.href=b;*/
+    }
+	function getOpenId(){
+    //     	document.title='获取微信授权';
+     		ajax({
+     			type:"GET",
+     			url:apiUrl+'/weixin/openid.json?code='+access_code,
+     			success:function(a){
+					"0"==a.base.code?(localStorage.setItem("openid",a.data.openid),//"0"==a.base.code?(sessionStorage.setItem("openId",a.data.openid),
+							intoHref(openid)):alert(a.msg)}})//intoHref(openId)):alert(a.msg)}})}
+	}
+    function getUriData(){
+    	var d,e,f,a={},b=location.search||"",c=b.replace(/^\?/,"").split("&");
+    		for(d=0,e=c.length;e>d;d++)f=c[d].split("="),a[f[0]]=f[1];return a
+	}
+ 	function ajax(options){
+		var oAjax=new XMLHttpRequest;
+		oAjax.open(options.type,options.url,!0),
+		oAjax.send(options.data),
+		oAjax.onreadystatechange=function(){
+		4==oAjax.readyState&&(200==oAjax.status?null!=options.success&&options.success(eval("("+oAjax.responseText+")")):options.erorr&&options.erorr("error:"+oAjax.status))}
+ 	}
+
+	 localStorage.clear("openid");
+	 var apiUrl=location.origin+'/insurex',
+	 access_code=getUriData()["code"],
+	 openid=localStorage.getItem("openid"),//openId=sessionStorage.getItem("openId"),
+	 start=function(){
+		 void 0!=openid?intoHref(openid):access_code?getOpenId(access_code):getCode()//void 0!=openId?intoHref(openId):access_code?getOpenId(access_code):getCode()};
+	 };
+	 start();
+
+})('/h5/insuranceNew/','wx212fb8b530921492');
+
+</script>
+</html>

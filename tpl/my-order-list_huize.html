@@ -1,0 +1,81 @@
+	<section class="my_hz">
+		<!--<header class="clearfix nav-list">
+		<nav class="order-status-list inline-style">
+			<a href="javascript:" ng-click="tabSelect('0')"  ng-class="{active:activeTab=='0'}">全部</a>
+			<a href="javascript:" ng-click="tabSelect('1')"  ng-class="{active:activeTab=='1'}">未支付</a>
+			<a href="javascript:" ng-click="tabSelect('2')"  ng-class="{active:activeTab=='2'}">保障中</a>
+			<a href="javascript:" ng-click="tabSelect('3')"  ng-class="{active:activeTab=='3'}">未生效</a>
+		</nav>
+		</header>
+		<div class="order_help">
+			<div ng-repeat="curProject in helpProjectlist" style="margin-bottom: 0.2rem;" >
+				<div ui-sref="helpTogether()" class="plan_order">{{curProject.title}}<label>&gt;</label></div>
+				<div ng-click="perAddedPerson(curProject)"  class="person_order">已加入被保险人<label>&gt;</label></div>&lt;!&ndash;ui-sref="helpPlanCenter()"&ndash;&gt;
+			</div>
+		</div>
+		<div class="order_company_info">
+			<div>
+				<span><img  src="image/zhonganIcon.png"/></span>
+				<span><a style="color: #24b98d;" href="https://m.zhongan.com/open/policy/policySearch">众安保险保单查询&gt;</a></span>
+			</div>
+			<p>如需下载电子表单，请用电脑登录众安保险官网<br />www.zhongan.com/open/policy/policySearch1</p>
+		</div>
+		<div class="order_detail_info" >
+			<div class="order_detail_info_list pos-relative"  ng-repeat="ord in orderList">
+				<p  class="package_name_01 " style="color:#252525">{{ord.productName}}</p>
+				<ul class="in_person_info">
+					<li>被保人: <span>{{ord.persons[0].name}}</span></li>
+					<li>购买时间: <span>{{ord.payDate}}</span></li>
+					<li>投保金额: <span style="color:#da3f5f">{{ord.fee}}元</span></li>
+				</ul>
+				<span class="abs pay_status" ng-class="{unpay:ord.status==1,payOk:ord.status==2,paying:ord.status==3}">{{ord.status==2?"保障中":(ord.status=='1'?"未支付":"未生效")}}</span>
+				<div class="order_buy_btn">
+					<span class="imp" ng-hide="ord.status==1" ui-sref="home.packageDetail.index({id:ord.prodId})">再次购买</span>
+					<span ng-show="ord.status==1" class="imp" ng-click="payIt(ord.id)">支付</span>
+					<span ui-sref="orderDetail({orderNumber:ord.id})">查看保单</span>
+				</div>
+			</div>
+		</div>-->
+		<div class="income_huize">
+			<p>当月收入</p>
+			<p ng-if="switchLabelTGF == 'true'||switchLabelTGF == true" style="text-align: center;height:0.4rem;">{{thisMonthIncome}}元</p>
+			<p ng-if="switchLabelTGF == 'false'||switchLabelTGF == false" style="text-align: center;height:0.4rem;">&lowast;&lowast;&lowast;&lowast;&lowast;&lowast;</p>
+
+			<!--<div class="incomoeQuestion_div">
+				<div ng-show="questionLabel" class="incomoeQuestion">每月20日为月结日，将结算上个自然月的推广费至您的银行卡账户<label></label></div>
+			</div>-->
+
+			<div class="income_totle_huize">
+				<div class="income_div_huize">
+					<span ng-click="questionShow()">上月收入</span><!--<label><img src="image/question.png"/></label>-->
+					<span ng-if="switchLabelTGF == 'true'||switchLabelTGF == true">{{lastMonthIncome}}元</span>
+					<span ng-if="switchLabelTGF == 'false'||switchLabelTGF == false">&lowast;&lowast;&lowast;&lowast;&lowast;&lowast;</span>
+				</div>
+				<div class="income_div_huize">
+					<span>累计收入</span>
+					<span ng-if="switchLabelTGF == 'true'||switchLabelTGF == true">{{totalIncome}}元</span>
+					<span ng-if="switchLabelTGF == 'false'||switchLabelTGF == false">&lowast;&lowast;&lowast;&lowast;&lowast;&lowast;</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="introduceWord">每月20日为月结日，将结算上个自然月的推广费至您的银行卡账户</div>
+		<div ng-click="showMyOrder()" class="myorder_huize">我的订单<label class="myLabel">&gt;</label></div>
+
+		<div class="tgf_huize" ng-click="showTGFSwitch()">
+			推广费显示
+			<label ng-if="switchLabelTGF == 'true'||switchLabelTGF == true"><img src="image/help_open.png"/></label>
+			<label ng-if="switchLabelTGF == 'false'||switchLabelTGF == false"><img src="image/help_close.png"/></label>
+		</div>
+
+		<div class="bottom">
+			<div class="bottom_div" ng-click="homeIconChange('0')">
+				<span><img src="image/firstpage_n.png"/></span>
+				<span>首页</span>
+			</div>
+			<div class="bottom_div" ng-click="homeIconChange('1')">
+				<span><img src="image/my_y.png"/></span>
+				<span>我的</span>
+			</div>
+		</div>
+	</section>

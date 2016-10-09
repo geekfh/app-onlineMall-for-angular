@@ -1,0 +1,105 @@
+
+	<section class="mobileScreen" style="background-color:#f3f3f3;width: 100%;">
+		<header class="product_img_02">
+			<img ng-src="{{img}}" alt="" style="width: 100%"/>
+		</header>
+		<div class="tips_info">
+			<h3>保障责任、保额<a href="#" class="waring_info pull-right" ui-sref="notice({id:id})">查看保险条款及告知&gt;&gt;</a></h3>
+		</div>
+		<div class="package_box">
+			<div class="package_select_box" ng-show="hasSuit==1">
+				<nav >
+					<a href="javascript:" ng-click="tabSelect('0')"  ng-class="{active:activeTab=='0'}">{{tabNameOne}}</a>
+					<a href="javascript:" ng-click="tabSelect('1')"  ng-class="{active:activeTab=='1'}">{{tabNameTwo}}</a>
+					<a href="javascript:" ng-click="tabSelect('2')"  ng-class="{active:activeTab=='2'}">{{tabNameTh}}</a>
+				</nav>
+			</div>
+			<div class="package_detail_box">
+				<p class="package_tittle">{{d2.title}}<span class="pull-right" style="color: #ff3636">{{d2.refund}}</span></p>
+				<!--<p class="package_content">{{d2.content}}</p>-->
+				<table class="table prdContent" style="width: 100%;">
+					<tbody id="tbody"></tbody>
+				</table>
+				<p class="package_price">价格：<span>{{d2.price}}</span><a href="#" class="price-aclc pull-right" ng-click="caclBoxShow()">保额试算&gt;&gt;</a></p>
+			</div>
+			<div class="prodc_intr">
+				<p class="prodc_intr_tittle">产品优势介绍</p>
+				<p class="prodc_intr_content">{{advantage}}</p>
+			</div>
+		</div>
+
+	</section>
+	<div class="to_buy_it" id="buy_it" ng-click="caclBoxShow() " style="width: 100%;bottom: 0">我要投保</div>
+	<div class="screen_cover" id="order_options_box">
+		<span class="close_window" id="close-window" ng-click="closeWindow()">
+			<img src="image/close.png"/>
+		</span>
+		<div class="order_detail_chioce" style="padding-top: 0.8rem">
+			<ul>
+				<li ng-show="allData.productAges.length>1">
+					<span >年龄</span>
+					<span class="opt_triangle"></span>
+					<span class="opt_content" ng-click="optBoxShow(0)">{{d4||'请选择'}}</span>
+				</li>
+				<li ng-show="allData.productDays.length>1">
+					<span>时间</span>
+					<span class="opt_triangle"></span>
+					<span class="opt_content" ng-click="optBoxShow(1)">{{d5||'请选择'}}</span>
+				</li>
+				<li ng-show="allData.productSuits.length>1">
+					<span>套餐</span>
+					<span class="opt_triangle"></span>
+					<span class="opt_content" ng-click="optBoxShow(2)">{{d6||'请选择'}}</span>
+				</li>
+				<li ng-show="allData.productGenders.length>1">
+					<span>性别</span>
+					<span class="opt_triangle"></span>
+					<span class="opt_content" ng-click="optBoxShow(3)">{{d7||'请选择'}}</span>
+				</li>
+
+			</ul>
+			<div class="screen_cover" id="ulDiv" style="background:rgba(40, 40,40, 0.6);">
+				<div id="ulBox" class="ulBox">
+					<span class="close_window" id="close" ng-click="closeOptions()">
+						<img src="image/close.png"/>
+					</span>
+					<ul>
+						<li ng-repeat="DATA in optionData" ng-click="insertContent(DATA)">{{DATA.description}}</li>
+					</ul>
+				</div>
+			</div>
+			<div style="width: 100%;background-color: #fff;position: fixed;bottom: 0" ng-hide="chosing">
+					<div class="priceShow">价格 <span  style="color:#ff3636">{{sellPrice}}元</span></div>
+					<div class="orderItNow" ng-click=" jump()" >立即订购</div>
+			</div>
+
+		</div>
+	</div>
+
+	<div class="screen_cover" ng-show="healthLabel" style="display:block;background-color:#fff">
+		<div class="health_title" >个人健康告知</div>
+		<ol class="health_rule"  >
+			<li class="health_rule_item" style="list-style:decimal inside;">您是否曾经被其他保险公司拒保，延期或加费？</li>
+			<li class="health_rule_item" style="list-style:decimal inside;">近亲属（父母子女兄弟姐妹）是否有2个及以上在60周岁前患同一癌症？</li>
+			<li class="health_rule_item" style="list-style:decimal inside;">您是否曾经或正患有下列任一疾病，体征或检查异常？
+				<ol  style="list-style:lower-alpha inside;"><!--type="a"-->
+					<li style="list-style:lower-alpha inside;">肿瘤指标*检查异常;</li>
+					<li style="list-style:lower-alpha inside;">手术后组织病理活检异常（恶性/交界性）；</li>
+					<li style="list-style:lower-alpha inside;">近两年发现肿块/息肉/结节/肿瘤/新生物且未手术；</li>
+					<li style="list-style:lower-alpha inside;">恶性肿瘤（包括白血病）、癌前病变、原位癌、类癌、肝硬化、慢性活动性肝炎、慢性萎缩性胃炎、恶性葡萄胎；</li>
+					<li style="list-style:lower-alpha inside;">乙肝指标*大三阳（HBeAg+且HBsAg+）、丙型肝炎；</li>
+					<li style="list-style:lower-alpha inside;">子宫颈疾病，且宫颈上皮内瘤变检测CIN III或HPV阳性；</li>
+					<li style="list-style:lower-alpha inside;">吞咽困难、咳血，吐血、便血或黑便，血尿，贫血，半年内体重减少5公斤以上。</li>
+				</ol>
+			</li>
+			<li class="health_rule_item"  style="list-style:decimal inside;">您是否吸烟（包括但不限于香烟、雪茄、水烟、鼻烟等）每天超过40支？</li>>
+			<li class="health_rule_item" style="list-style:decimal inside;">每周饮酒单位大于等于50？（每一个饮酒单位相当于12g酒精。 例如，1杯（300ml）啤酒，半杯葡萄酒，45ml 白酒</li>
+		</ol>
+
+		<div class="health_buttonDiv" >
+			<span class="health_button" ng-click="isHealthNotice(0)" style="background-color: #ff6c01;color:#fff">以上全无</span>
+			<span class="health_button" ng-click="isHealthNotice(1)" style="border-color: gray;">部分情况有</span>
+		</div>
+		<div class="buyTip"  ng-show="buyTipLabel" >被保险人不满足购买此产品的健康需要，暂无法购买</div>
+	</div>
+

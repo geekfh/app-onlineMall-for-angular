@@ -1,0 +1,118 @@
+{   "banner":"image/post.png",
+  "dataList": [
+    {
+      "id": "1",
+      "tittle": "全年航空意外险1",
+      "content": "盒子支付携泰康人寿保您平平安安,盒子支付寿保您平平安安",
+      "img":"image/pictest-1.jpg",
+      "price": "1228元",
+      "type": "意外",
+      "has_suit": "0",
+      "has_age":"0",
+      "has_number":"0",
+      "create_date":"",
+      "update_date":""
+
+    },
+    {
+      "id": "2",
+      "tittle": "全年航空意外险2",
+      "content": "盒子支付携泰康人寿保您平平安安,盒保您平平安安",
+      "img":"image/pictest-2.jpg",
+      "price": "28元",
+      "type": "成人",
+      "has_suit": "0",
+      "has_age":"0",
+      "has_number":"0",
+      "create_date":"",
+      "update_date":""
+
+    },
+    {
+      "id": "2213454",
+      "tittle": "全年航空意外险3",
+      "content": "盒子支付携泰康人寿保子支付携泰康人寿保您平平安安",
+      "img":"",
+      "price": "8228元",
+      "type": "少儿",
+      "has_suit": "0",
+      "has_age":"0",
+      "has_number":"0",
+      "create_date":"",
+      "update_date":""
+
+    },
+    {
+      "id": "2213454",
+      "tittle": "全年航空意外险4",
+      "content": "盒子支付携泰康人寿保您平平安安",
+      "img":"",
+      "price": "1228元",
+      "type": "意外",
+      "has_suit": "0",
+      "has_age":"0",
+      "has_number":"0",
+      "create_date":"",
+      "update_date":""
+
+    },
+    {
+      "id": "2213454",
+      "tittle": "全年航空意外险5",
+      "content": "盒子支付携泰康人寿保您平平安安",
+      "img":"",
+      "price": "1228元",
+      "type": "意外",
+      "has_suit": "0",
+      "has_age":"0",
+      "has_number":"0",
+      "create_date":"",
+      "update_date":""
+
+    },
+    {
+      "id": "2213454",
+      "tittle": "全年航空意外险6",
+      "content": "盒子支付携泰康人寿保您平平安安",
+      "img":"",
+      "price": "1228元",
+      "type": "意外",
+      "has_suit": "0",
+      "has_age":"0",
+      "has_number":"0",
+      "create_date":"",
+      "update_date":""
+
+    },
+    {
+      "id": "2213454",
+      "tittle": "全年航空意外险1",
+      "content": "盒子支付携泰康人寿保您平平安安",
+      "img":"",
+      "price": "1228元",
+      "type": "意外",
+      "has_suit": "0",
+      "has_age":"0",
+      "has_number":"0",
+      "create_date":"",
+      "update_date":""
+
+    },
+    {
+      "id": "2213454",
+      "tittle": "全年航空意外险1",
+      "content": "盒子支付携泰康人寿保您平平安安",
+      "img":"",
+      "price": "1228元",
+      "type": "意外",
+      "has_suit": "0",
+      "has_age":"0",
+      "has_number":"0",
+      "create_date":"",
+      "update_date":""
+
+    }
+
+  ]
+}
+

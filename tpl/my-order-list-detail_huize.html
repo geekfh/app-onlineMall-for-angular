@@ -1,0 +1,30 @@
+	<section class="my-myorder_hz">
+
+		<div class="insure_div">
+			<ul class="insure_ul">
+				<li ng-repeat="order in orderDetailList">
+					<div class="insure_per">
+						<span>{{order.productName}}<label class="myLabel">&gt;</label></span>
+						<span>被保险人：{{order.insurant}}</span>
+						<span>投保日期：{{order.insuredate}}</span>
+					</div>
+					<div class="insure_per">
+						<span>保费{{order.price}}元</span>
+						<span>推广费比例：{{order.ratio}}%<label class="tgfLabel">获得推广费：{{order.income}}元</label></span>
+					</div>
+				</li>
+				<!--<li>
+					<div class="insure_per">
+						<span>保险产品名称<label class="myLabel">&gt;</label></span>
+						<span>被保险人：张三 李四</span>
+						<span>投保日期：2016-08-16</span>
+					</div>
+					<div class="insure_per">
+						<span>保费1000元</span>
+						<span>推广费比例：10%<label class="tgfLabel">获得推广费：132元</label></span>
+					</div>
+				</li>-->
+			</ul>
+		</div>
+
+	</section>

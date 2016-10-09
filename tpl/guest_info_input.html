@@ -1,0 +1,322 @@
+
+
+	<section class="mobileScreen" style="padding-top: 0.3rem;padding-bottom: 0.5rem;">
+		<p class="info_tittle">被保险人资料
+			<span ng-click="addBoxShow()" class="pull-right" style="background-color: #24b98d;color: #fff;
+				display:inline-block;width:1rem;height:0.5rem;line-height:0.5rem;text-align:center;font-size: 0.2rem">+ 添加</span></p>
+		<!--添加新被保险人信息 -- （无被保险人）-->
+		<form name="firstAddForm" ng-show="emptyPersons">
+			<div class="insurance_person_info">
+			<ul>
+				<li ng-class="{'error':firstAddForm.name.$touched && firstAddForm.name.$invalid}" class="dottLine">
+					<label>姓名</label>
+					<input type="text" name="name"  class="pull-right" ng-model="oneAdd.name"
+					ng-pattern="/^[\u0391-\uFFE5]+$/i"  minlength="2" maxlength="8" placeholder="请输入被保险人名字" required >
+				</li>
+				<li style="overflow: hidden" class="dottLine">
+					<select class="pull-right" ng-model="oneAdd.idType" ng-init="oneAdd.idType='01'" style="margin: -0.02rem">
+						<option  value="01" ng-selected="true">请选择证件类型 &nbsp; (默认身份证)</option>
+						<option  value="01">身份证</option>
+						<!--<option  value="02">军官证</option>
+						<option  value="03">护照</option>-->
+					</select>
+				</li>
+				<li ng-if="oneAdd.idType == '01'" ng-class="{'error':firstAddForm.dID.$invalid && firstAddForm.dID.$touched || firstAddForm.dID.$touched && idIsNotOk }" class="dottLine">
+					<label>证件号码：</label>
+					<input type="text" name="dID" class="pull-right" id="idCard"
+					ng-model="oneAdd.idNumber" placeholder="请输入证件号码" ng-change="idNumberTest(oneAdd.idNumber)"
+					 minlength="15" maxlength="18" required/>
+				</li>
+				<li ng-if="oneAdd.idType == '02' || oneAdd.idType == '03'" ng-class="{'error': firstAddForm.dID.$invalid && firstAddForm.dID.$touched }" style="height: 0.8rem;line-height: 0.8rem; overflow: hidden;"><!--|| idIsNotOk && userForm.idNumber.$touched--><!--userForm.idNumber.$touched && userForm.idNumber.$invalid-->
+					<label>证件号码：</label>
+					<input type="text" name="dID" class="pull-right" ng-model="oneAdd.idNumber"
+						   placeholder="请输入证件号码" required/>
+				</li>
+			</ul>
+
+			</div>
+			<div class="saveBtnDiv" >
+				<button ng-if="oneAdd.idType == '01'"  class="saveBtn"　ng-disabled="firstAddForm.$invalid || idIsNotOk"
+					 ng-class="{'saveBtn_active':firstAddForm.$valid && !idIsNotOk}" ng-click="Add(oneAdd)">保存</button>
+				<button ng-if="oneAdd.idType != '01'"  class="saveBtn"　ng-disabled="firstAddForm.$invalid"
+					ng-class="{'saveBtn_active':firstAddForm.$valid}" ng-click="Add(oneAdd)">保存</button>
+			</div>
+		</form>
+
+		<!--可选被保险人表单 -- （有被保险人）-->
+		<form name="userForm"  novalidate>
+			<div class="insurance_person_info">
+				<ul>
+					<li class="insurance_person_info_li" style="padding: 0.1rem 0rem" ng-repeat="p in userData">
+						<span class="person_info_span" style="width: 5%; bottom:0.2rem;"><a class="options_o" ng-class="{options_active:p.checkLabel}" ng-click="selected(p,$index)"></a></span>
+						<span class="person_info_span" style="width: 60%; padding-left:0.1rem;">
+							<div class="person_info_span_div" ng-class="{options_sel_active:p.checkLabel}" >
+								<label   >姓名</label>
+								<span   >{{p.name}}</span>
+							</div>
+							<div  class="person_info_span_div" ng-class="{options_sel_active:p.checkLabel}" >
+								<label ng-if="p.idType == '01'">身份证</label>
+								<label ng-if="p.idType == '02'">军官证</label>
+								<label ng-if="p.idType == '03'">护照</label>
+								<span  >{{p.idNumber}}</span>
+							</div>
+						</span>
+						<span class="person_info_span" style="width: 15%; bottom:0.2rem; color: red; text-align: right; " ng-show="p.checkLabel">{{p.fee||'0'}}元</span>
+						<span class="person_info_span" style="width: 10%; bottom:0.2rem; float:right;" ng-click="editerPerson(p)" ><a class="edit_pic" ></a></span>
+					</li>
+				</ul>
+			</div>
+
+
+			<p class="info_tittle">投保人</p>
+			<!--<div class="insurance_person_info">-->
+			<div class="insurance_person_info">
+				<ul>
+					<li ng-class="{'error':userForm.contactsName.$touched && userForm.contactsName.$invalid}" style="height: 0.8rem;line-height: 0.8rem">
+						<label >姓名：</label>
+						<input type="text" name="contactsName"
+							placeholder="请输入联系人姓名" class='pull-right' ng-model="user.contacts_name" ng-pattern="/^[\u0391-\uFFE5]+$/i"  minlength="2" maxlength="8" required>
+					</li>
+					<!--/////////////////////////////////////////////-->
+					<li ng-class="{'error':userForm.idType.$touched && userForm.idType.$invalid}" style="height: 0.8rem;line-height: 0.8rem; overflow: hidden;">
+						<select class="pull-right" name="idType"  ng-model="user.idType" ng-init="user.idType='01'" style="margin: -0.02rem">
+							<option  value="01" ng-selected="true">请选择证件类型 &nbsp; (默认身份证)</option>
+							<option  value="01">身份证</option>
+							<!--<option  value="02">军官证</option>
+							<option  value="03">护照</option>-->
+						</select>
+					</li>
+					<li ng-if="user.idType == '01'" ng-class="{'error': userForm.idNumber.$invalid && userForm.idNumber.$touched || userForm.idNumber.$touched && idIsNotOk }" style="height: 0.8rem;line-height: 0.8rem; overflow: hidden;"><!--|| idIsNotOk && userForm.idNumber.$touched--><!--userForm.idNumber.$touched && userForm.idNumber.$invalid-->
+						<label>证件号码：</label>
+						<input type="text" name="idNumber" class="pull-right" ng-model="user.idNumber"
+							   placeholder="请输入身份证号码" ng-change="idNumberTest(user.idNumber)"
+							   minlength="15" maxlength="18" required/>
+					</li>
+					<li ng-if="user.idType == '02' || user.idType == '03'" ng-class="{'error': userForm.idNumber.$invalid}" style="height: 0.8rem;line-height: 0.8rem; overflow: hidden;"><!--|| idIsNotOk && userForm.idNumber.$touched--><!--userForm.idNumber.$touched && userForm.idNumber.$invalid-->
+						<label>证件号码：</label>
+						<input type="text" name="idNumber" class="pull-right" ng-model="user.idNumber"
+							   placeholder="请输入身份证号码" required/>
+					</li>
+					<!--//////////////////////////////////////////////////-->
+					<li ng-class="{'error':userForm.contactsTel.$touched && userForm.contactsTel.$invalid}" style="height: 0.8rem;line-height: 0.8rem">联系电话：
+						<input type="text" name="contactsTel" 
+							placeholder="请输入联系方式" class='pull-right' ng-model="user.mobile" ng-minlength="11" maxlength="11"
+							ng-pattern="/^0?(13[0-9]|15[012356789]|17[0-9]|18[0-9]|14[57])[0-9]{8}$/i" required/>
+					</li>
+					<li style="border-bottom: none">
+						<label>支付方式选择</label>
+					</li>
+					<li class="payMent_way"  style="width: 100%;padding: 0 0.2rem;height: 1.2rem"><!--ng-show="headSourceType != 'weixin' "'market'-->
+						<!--<div ng-click="payType('alipay')" ng-model="user.payType" ng-class="{selected_border:wechatpayLabel=='alipay' }" class="pull-left alipay_btn">
+							<img src="image/alipay.png" width="60%" />
+						</div>
+						<div ng-click="payType('wechatpay')" ng-model="user.payType" ng-show="headSourceType != 'market' " ng-class="{selected_border:wechatpayLabel=='wechatpay' }" class="pull-left wechat_btn">
+							<img src="image/wechatpay.png" width="70%"/>
+						</div>-->
+						<div ng-show="source == 'market'" class="pull-left alipay_btn selected_border">
+							<img src="image/alipay.png" width="60%" />
+						</div>
+						<div ng-show="source == 'weixin'" class="pull-left wechat_btn selected_border">
+							<img src="image/wechatpay.png" width="70%" />
+						</div>
+					</li>
+				</ul>
+			</div>
+
+		<p class="info_tittle">保险信息</p>
+		<div class="insurance_detail_info">
+			<ul>
+				<li>产品名称:<span>{{preInfo.productName}}</span></li>
+				<li>购买详情<span class="order_count">1份</span></li>
+				<li>生效日期:<span style="margin-left: 0.38rem;"><input value={{startDate}} style=" border: none; padding-left:0.08rem; width: 65%;height:0.5rem;background:url('image/calender.png') no-repeat right;background-size: 0.4rem"
+									   readonly="readonly" name="appDate_start" id="appDate_start" type="text"/></span></li>
+				<li>失效日期:<span id="endDate" style="margin-left: 0.45rem;"></span></li>
+				<li>保障额度<span>{{preInfo.amount}}元</span></li>
+				<li>缴纳金额<span class="order_price">{{price}}元</span></li>
+			</ul>
+		</div>
+		<div class="protocol_group">
+			<label ng-model="lab_txt">
+				<a class="protocol_txt" id="cbox" ng-class="{checkBox_active: cbox_checked}" ng-click="change_img()"></a>
+				本人已阅读并同意
+				<span style="color: #FF6C00" ui-sref="notice({id:id})">《保险条款》</span> 和
+				<span  style="color: #FF6C00" ui-sref="notice({id:id})">《投保须知》</span>
+			</label>
+		</div>
+
+			<button ng-if="idIsNotOk" type="submit" ng-disabled="true " ng-class={"dis-btn":true}
+					class="pay_it_now" ng-click="orderInfoSubmit(user)" ng-hide="submitting">确认提交订单</button>
+
+			<button ng-if="!idIsNotOk" type="submit" ng-disabled="userForm.$invalid || idIsNotOk " ng-class={"dis-btn":userForm.$invalid}
+					class="pay_it_now" ng-click="orderInfoSubmit(user)" ng-hide="submitting">确认提交订单</button>
+			<button ng-if="!idIsNotOk" type="submit" class="pay_it_now" style="background-color: #ddd;color: #fff;position: relative;" ng-show="submitting">订单提交中...</button>
+		</form>
+
+	</section>
+
+
+	<!--投保等待框-->
+	<div class="wait_cover" ng-show="waiting" id="wait_cover">
+
+		<div class="spinner" ng-hide="postFailed">
+			<div class="spinner-container container1">
+				<div class="circle1"></div>
+				<div class="circle2"></div>
+				<div class="circle3"></div>
+				<div class="circle4"></div>
+			</div>
+			<div class="spinner-container container2">
+				<div class="circle1"></div>
+				<div class="circle2"></div>
+				<div class="circle3"></div>
+				<div class="circle4"></div>
+			</div>
+			<div class="spinner-container container3">
+				<div class="circle1"></div>
+				<div class="circle2"></div>
+				<div class="circle3"></div>
+				<div class="circle4"></div>
+			</div>
+		</div>
+
+		<!--订单提交失败-->
+		<div class="send_email send_email sendFailed"  ng-show="postFailed" style="border-radius: 0;height: 2.8rem">
+			<p class="email_hint">订单提交失败，重新填写信息</p>
+			<ul class="email_button_group inline-style" >
+				<li style="width: 100%;border-right: none;color:#24b98d" ng-click="reInput()">确定</li>
+			</ul>
+		</div>
+
+		<!--没有选择被保人-->
+		<div class="send_email sendFailed" ng-show="notValid" style="border-radius: 0;height: 2.8rem">
+			<p class="email_hint">请至少选择一个被保人</p>
+			<ul class="email_button_group inline-style" >
+				<li style="width: 100%;border-right: none;color:#24b98d" ng-click="reInput()">确定</li>
+			</ul>
+		</div>
+	</div>
+
+	<!--添加被保险人-->
+	<div style="width:100%;height: 100%;background-color: rgba(40, 40,40, 0.6);position: fixed;top: 0;padding: 0.3rem" ng-show="addBox">
+		<div style="width: 100%;background-color: #fff;height: 4rem;position: relative;top: 1rem;" >
+
+		<div class="insurance_person_info"  style="padding-top: 0.2rem">
+			<p style="color: #24b98d;font-size:0.3rem;margin-bottom:0;margin-top: 0.2rem">添加被保险人</p>
+
+			<form name="addpersonForm">
+			<ul>
+				<li ng-class="{'error':addpersonForm.name.$touched && addpersonForm.name.$invalid}" class="heightSet">
+					<label style="font-weight: normal;">姓名</label>
+					<input type="text" name="name"  class="pull-right" ng-model="addPerson.name"
+						   ng-pattern="/^[\u0391-\uFFE5]+$/i"  minlength="2" maxlength="8" placeholder="请输入被保险人名字" required >
+				</li>
+
+				<li style="overflow: hidden" class="heightSet">
+					<select class="pull-right" ng-model="addPerson.idType" ng-init="addPerson.idType='01'" style="margin: -0.02rem">
+						<option  value="01" ng-selected="true">请选择证件类型 &nbsp; (默认身份证)</option>
+						<option  value="01">身份证</option>
+						<!--<option  value="02">军官证</option>
+						<option  value="03">护照</option>-->
+					</select>
+				</li>
+
+				<li ng-if="addPerson.idType == '01'" ng-class="{'error':addpersonForm.dID.$touched && addpersonForm.dID.$invalid || addpersonForm.dID.$touched && idIsNotOk}" class="heightSet">
+					<label style="font-weight: normal;">证件号码：</label>
+					<input  type="text" name="dID" class="pull-right" ng-change="idNumberTest(addPerson.idNumber)"
+						   ng-model="addPerson.idNumber" placeholder="请输入身份证号码" minlength="15" maxlength="18" required/>
+				</li>
+				<li ng-if="addPerson.idType != '01'" ng-class="{'error':addpersonForm.dID.$touched && addpersonForm.dID.$invalid}" class="heightSet">
+					<label style="font-weight: normal;">证件号码：</label>
+					<input ng-if="addPerson.idType == '02'" type="text" name="dID" class="pull-right"
+						   ng-model="addPerson.idNumber" placeholder="请输入军官证" required/> <!--ng-minlength="8" ng-maxlength="8"-->
+					<input ng-if="addPerson.idType == '03'" type="text" name="dID" class="pull-right"
+						   ng-model="addPerson.idNumber" placeholder="请输入护照" required/><!--ng-minlength="8" ng-maxlength="9"-->
+
+				</li>
+			</ul>
+			<ul  class="clearfix" style="width: 100%;background-color: #fff;position: absolute;left: 0;bottom: 0;">
+				<button class="cancelBtn"
+					ng-click="cancalAdd()">取消</button>
+				<button  ng-if="addPerson.idType == '01'" class="okBtn" ng-disabled="addpersonForm.$invalid || idIsNotOk" class="okBtn" ng-class="{'okBtn_active':addpersonForm.$valid && !idIsNotOk}"
+				 	ng-click="Add(addPerson)">确认</button>
+				<button  ng-if="addPerson.idType == '02' || addPerson.idType == '03'" class="okBtn" ng-disabled="addpersonForm.$invalid" class="okBtn" ng-class="{'okBtn_active':addpersonForm.$valid}"
+					 ng-click="Add(addPerson)">确认</button>
+			</ul>
+			</form>
+
+		</div>
+		</div>
+	</div>
+
+	<!--联系人选择提示框-->
+	<div class="send_email sendFailed"  ng-show='notVaild' style="border-radius: 0;height: 2rem;position: fixed;top: 30%;background-color: #333;color: #fff">
+		<p class="email_hint" style="color: #fff">请至少选择一个被保人</p>
+		<ul class="email_button_group inline-style" >
+			<li style="width: 100%;border-right: none;color:#000;background-color: #ddd" ng-click="sure()">确定</li>
+		</ul>
+	</div>
+
+
+	<!--编辑联系人-->
+	<div ng-show="editerBox">
+		<div style="width:100%;height: 100%;background-color: rgba(40, 40,40, 0.6);position: fixed;top: 0;padding: 0.3rem" >
+			<div style="width: 100%;background-color: #fff;height:4rem;position: relative;top: 1rem;" >
+
+				<div class="insurance_person_info"  style="padding-top: 0.2rem">
+					<p style="color: #24b98d;font-size:0.3rem;margin-bottom: 0;margin-top: 0.2rem">修改联系人</p>
+
+					<form name="editerForm">
+						<ul>
+							<li ng-class="{'error': editerForm.name.$touched && editerForm.name.$invalid}" class="heightSet"><!---->
+								<label style="font-weight: normal;">姓名</label>
+								<input type="text" name="name"  class="pull-right" ng-model="editer.name"
+									   ng-pattern="/^[\u0391-\uFFE5]+$/i"  minlength="2" maxlength="8" placeholder="请输入被保险人名字" required >
+							</li>
+							<li style="overflow: hidden" class="heightSet">
+								<select class="pull-right" ng-model="editer.idType" ng-init="editer.idType='01'" style="margin: -0.02rem">
+									<option  value="01" ng-selected="true">请选择证件类型 &nbsp; (默认身份证)</option>
+									<option  value="01">身份证</option>
+									<!--<option  value="02">军官证</option>
+									<option  value="03">护照</option>-->
+								</select>
+							</li>
+							<li ng-class="{'error': editerForm.dID.$touched && editerForm.dID.$invalid || editerForm.dID.$touched && idIsNotOk}"   class="heightSet"> <!---->
+								<label style="font-weight: normal;">证件号码：</label>
+								<input ng-if="editer.idType == '01'" type="text" name="dID" class="pull-right" ng-change="idNumberTest(editer.idNumber)"
+									   ng-model="editer.idNumber" placeholder="请输入身份证号码" minlength="15" maxlength="18" required/>
+								<input ng-if="editer.idType == '02'" type="text" name="dID" class="pull-right"
+									   ng-model="editer.idNumber" placeholder="请输入军官证" required/> <!--ng-minlength="8" ng-maxlength="8"-->
+								<input ng-if="editer.idType == '03'" type="text" name="dID" class="pull-right"
+									   ng-model="editer.idNumber" placeholder="请输入护照" required/><!--ng-minlength="8" ng-maxlength="9"-->
+
+							</li>
+						</ul>
+						<ul  class="clearfix" style="width: 100%;border: 1px solid #ddd;background-color: #fff;position: absolute;left: 0;bottom: 0;">
+							<button class="cancelBtn" ng-click="cancalEiter()">取消</button>
+							<button  ng-if="editer.idType == '01'" ng-disabled="editerForm.$invalid || idIsNotOk" class="okBtn" ng-class="{'okBtn_active':editerForm.$valid && !idIsNotOk}"  ng-click="Add(editer)">确认</button>
+							<button  ng-if="editer.idType != '01'" class="okBtn" ng-disabled="editerForm.$invalid" class="okBtn" ng-class="{'okBtn_active':editerForm.$valid}" ng-click="Add(editer)">确认</button>
+						</ul>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--身份证不合法提示-->
+	<!--<div class="screen_cover" ng-hide='idIsNotOk' style="display: block;">
+		<div  style="border-radius: 0;position:fixed;height:1.5rem;top:20%;width:100%;padding:0 10%" >
+			<p class="hintContent">请输入合法身份证号码</p>
+			<p class="hintOk" ng-click="yes()">确定</p>
+		</div>
+	</div>-->
+	<!--名字填写提示-->
+	<div class="screen_cover" ng-hide='nameIsNotOk' style="display: block;">
+		<div style=" border-radius: 0;position:fixed;height:1.5rem;top:20%;width:100%;padding:0 10%; z-index: 0;" >
+			<p class="hintContent">请输入合法姓名</p>
+			<p class="hintOk" ng-click="yes()">确定</p>
+		</div>
+	</div>
+
+	<!--保险生效日期提示-->
+	<div class="startDateTip" id="startDateTipId">保险生效日期最早为明天，请重新选择</div>
+
+

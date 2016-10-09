@@ -1,0 +1,94 @@
+
+	<!--<section class="mobileScreen" style="background-color: #f3f3f3;">
+		<div ng-hide="marketIn == 'market'" class="banner" >
+			<banner_image></banner_image>
+		</div>
+
+		&lt;!&ndash;<div class="personSelect">
+			<p>
+				<a href="javascript:" ng-click="tabSelect('0')"  ng-class="{active:activeTab=='0'}">全部</a>
+				<a href="javascript:" ng-click="tabSelect('3')"  ng-class="{active:activeTab=='3'}">健康</a>
+				<a href="javascript:" ng-click="tabSelect('2')"  ng-class="{active:activeTab=='2'}">出行</a>
+				<a href="javascript:" ng-click="tabSelect('1')"  ng-class="{active:activeTab=='1'}">财产</a>
+			</p>
+		</div>&ndash;&gt;
+		<div class="product_list">
+			<ul>
+				<li ng-repeat="helpPackag in helpPackageList">
+					<div style="background: url(image/default_s.png);background-size: 1.8rem"><img class="product_img_01" ng-src="{{d.thumbnail}}" /></div>
+					<div class="product_intr pos-relative">
+						<h2>{{helpPackag.title}}</h2>
+						<p>{{helpPackag.projectDesc}}</p>
+						<div class="abs">
+							 <a ng-click="gotoHelpPlan(helpPackag)" class="buy-it pull-right" >立即加入</a>
+						</div>
+					</div>
+				</li>
+				<li ng-repeat="d in packageList">
+					<div style="background: url(image/default_s.png);background-size: 1.8rem"><img class="product_img_01" ng-src="{{d.thumbnail}}" /></div>
+					<div class="product_intr pos-relative">
+						<h2>{{d.title}}</h2>
+						<p>{{d.content}}</p>
+						<div class="abs">
+							<span class="txt-bold product_price">{{d.price==0?'免费':d.price+"元起"}}</span>  <a ng-click="jumpToDetail(d)" class="buy-it pull-right" id="buy-it">立即投保</a>
+						</div>
+					<span class="abs list_label">{{d.type==1?"财产":(d.type==2?"出行":(d.type==3?"健康":"车险"))}}</span>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="bottom_cover"  id="myOrderBtn">
+			&lt;!&ndash;<div class="toMyOrder" ui-sref="myOrder">我的保单</div>&ndash;&gt;&lt;!&ndash;ng-click="zhonganbaoxian() ui-sref="myOrder"&ndash;&gt;
+
+			<div ng-if="marketIn == 'weixin'" class="newToMyOrder" ui-sref="myOrder"><img src="image/myICON.png"></div>
+			<div ng-if="marketIn == 'market'" class="newToMyOrder" ui-sref="myOrder_market"><img src="image/myICON.png"></div>
+		</div>
+		&lt;!&ndash;<div class="bottom_cover" style="bottom: 2rem">&ndash;&gt;
+			&lt;!&ndash;<div class="toMyOrder" ui-sref="freeInsurex">免费领取</div>&ndash;&gt;
+		&lt;!&ndash;</div>&ndash;&gt;
+
+
+		&lt;!&ndash;<div ng-show="marketIn == 'market'" class="more_insurance" ng-click="gotoHistoryVersions()" >
+			<div class="moreInsurance" >旧版入口 &gt;&gt;</div>
+		</div>&ndash;&gt;
+	</section>-->
+
+	<section class="mobileScreen" style="background-color: #f3f3f3;">
+		<div class="banner" >
+			<img src="img/taikang_plane.png" class="width-full" style="width: 100%;height:2.8rem"/></div>
+		</div>
+		<div class="personSelect_new">推荐产品</div>
+
+		<div class="product_list_new">
+			<ul class="product_ul_new">
+				<li ng-repeat="d in packageList" ng-click="gotoPackage(d)">
+					<div class="product_title">
+						<span>{{d.title}}</span>
+						<span style="background: url(image/icon.png);background-size: cover;"><img ng-src="{{d.img}}"/></span> <!--// src="image/icon.png"-->
+					</div>
+					<div class="product_content">{{d.content}}</div>
+					<div class="product_detail">
+						<span>&yen;{{d.price}}起</span>
+						<span ng-show="switchLabelTGF == 'true'||switchLabelTGF == true" class="product_tg">推广费：{{d.ratio}}%</span>
+						<span>销量：{{d.sale}}</span>
+					</div>
+				</li>
+			</ul>
+		</div>
+
+		<!--<div class="bottom_cover"  id="myOrderBtn">
+			<div ng-if="marketIn == 'weixin'" class="newToMyOrder" ui-sref="myOrder"><img src="image/myICON.png"></div>
+			<div ng-if="marketIn == 'market'" class="newToMyOrder" ui-sref="myOrder_market"><img src="image/myICON.png"></div>
+		</div>-->
+		<div class="bottom">
+			<div class="bottom_div" ng-click="homeIconChange('0')">
+				<span><img src="image/firstpage_y.png"/></span>
+				<span>首页</span>
+			</div>
+			<div class="bottom_div" ng-click="homeIconChange('1')">
+				<span><img src="image/my_n.png"/></span>
+				<span>我的</span>
+			</div>
+		</div>
+
+	</section>

@@ -1,0 +1,40 @@
+	<section class="mobileScreen" style="background-color: #F3F3F3;margin-bottom: 0.5rem">
+		<header class="clearfix nav-list">
+		<nav class="order-status-list inline-style">
+			<a href="javascript:" ng-click="tabSelect('0')"  ng-class="{active:activeTab=='0'}">全部</a>
+			<a href="javascript:" ng-click="tabSelect('1')"  ng-class="{active:activeTab=='1'}">未支付</a>
+			<a href="javascript:" ng-click="tabSelect('2')"  ng-class="{active:activeTab=='2'}">保障中</a>
+			<a href="javascript:" ng-click="tabSelect('3')"  ng-class="{active:activeTab=='3'}">未生效</a>
+		</nav>
+		</header>
+		<div class="order_help">
+			<div ng-repeat="curProject in helpProjectlist" style="margin-bottom: 0.2rem;" >
+				<div ui-sref="helpTogether()" class="plan_order">{{curProject.title}}<label>&gt;</label></div>
+				<div ng-click="perAddedPerson(curProject)"  class="person_order">已加入被保险人<label>&gt;</label></div><!--ui-sref="helpPlanCenter()"-->
+			</div>
+		</div>
+		<div class="order_company_info">
+			<div>
+				<span><img  src="image/zhonganIcon.png"/></span>
+				<span><a style="color: #24b98d;" href="https://m.zhongan.com/open/policy/policySearch">众安保险保单查询&gt;</a></span>
+			</div>
+			<p>如需下载电子表单，请用电脑登录众安保险官网<br />www.zhongan.com/open/policy/policySearch1</p>
+		</div>
+		<div class="order_detail_info" >
+			<div class="order_detail_info_list pos-relative"  ng-repeat="ord in orderList">
+				<p  class="package_name_01 " style="color:#252525">{{ord.productName}}</p>
+				<ul class="in_person_info">
+					<li>被保人: <span>{{ord.persons[0].name}}</span></li>
+					<li>购买时间: <span>{{ord.payDate}}</span></li>
+					<li>投保金额: <span style="color:#da3f5f">{{ord.fee}}元</span></li>
+				</ul>
+				<span class="abs pay_status" ng-class="{unpay:ord.status==1,payOk:ord.status==2,paying:ord.status==3}">{{ord.status==2?"保障中":(ord.status=='1'?"未支付":"未生效")}}</span>
+				<div class="order_buy_btn">
+					<span class="imp" ng-hide="ord.status==1" ui-sref="home.packageDetail.index({id:ord.prodId})">再次购买</span>
+					<span ng-show="ord.status==1" class="imp" ng-click="payIt(ord.id)">支付</span>
+					<span ui-sref="orderDetail({orderNumber:ord.id})">查看保单</span>
+				</div>
+			</div>
+		</div>
+
+	</section>

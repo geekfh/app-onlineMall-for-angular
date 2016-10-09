@@ -1,0 +1,103 @@
+
+	<section class="mobileScreen" style=" background-color: #f3f3f3;padding-top:0.4rem ;padding-bottom: 0.5rem;">
+		<div class="order_package_detail">
+			<p class="order_package_name">{{orderDetailData.productName}}</p>
+			<span class="abs pay_status" ng-class="{unpay:orderDetailData.status==1,payOk:orderDetailData.status==2,paying:orderDetailData.status==3}">{{orderDetailData.status==2?"保障中":(orderDetailData.status=='1'?"未支付":"未生效")}}</span>
+
+			<ul>
+				<li>保单号<span>{{orderDetailData.orderNo}}</span></li>
+				<li>生效日期<span>{{orderDetailData.startDate}}</span></li>
+				<li>终止日期<span>{{orderDetailData.endDate}}</span></li>
+				<!--<li>保障额度<span>{{orderDetailData.refund}}元</span></li>-->
+				<li>缴纳金额<span>{{orderDetailData.fee}}元</span></li>
+				<li>付款时间<span>{{orderDetailData.payDate}}</span></li>
+			</ul>
+			<!--<div class="email_button">
+				<div class="long-button" ng-click="Ewords()" style="float:left; width:49%; background-color:#24B98D; color:white; font-size: 0.25rem;line-height: 0.6rem">查看电子保单</div>
+				<div class="long-button" ng-click="emailBoxShow()" style="float:left; margin-left:0.1rem; width:49%; color:#24B98D;font-size: 0.25rem;line-height: 0.6rem">发送电子保单</div>
+			</div>-->
+			<div class="long-button" ng-click="emailBoxShow()" style="color:#24B98D;
+			font-size: 0.25rem;line-height: 0.6rem">发送电子保单</div>
+
+		</div>
+		<div class="order_package_detail_02">
+			<p>被保险人信息</p>
+			<ul ng-repeat="p in orderDetailData.persons">
+				<li>姓名:<span>{{p.name}}</span></li>
+				<li>证件号:<span>{{p.idNumber}}</span></li>
+				<!--<div class="long-button" ng-click="Ewords(p)" style="color:#24B98D;
+			font-size: 0.25rem;line-height: 0.6rem">查看电子保单</div>-->
+			</ul>
+
+			<p>联系人资料</p>
+			<ul>
+				<li>姓名:<span>{{orderDetailData.contact.name}}</span></li>
+				<li>手机号<span>{{orderDetailData.contact.mobile}}</span></li>
+			</ul>
+			<div class="long-button" ui-sref="home.packageDetail.index({id:orderDetailData.prodId})" style="color:#24B98D;
+			font-size: 0.25rem;line-height: 0.6rem">再次购买</div>
+		</div>
+	</section>
+	<div class="screen_cover" id="email_box">
+		<form  name="orderForm" ng-submit="submitForm()" novalidate>
+		<div class="send_email" ng-class="{'error':firstAddForm.name.$touched && firstAddForm.name.$invalid}" style="font-size: 0.25rem;font-weight: normal" >
+			<span class="email_hint" style="width:2.6rem; font-size: 0.25rem;font-weight: normal">请输入邮箱地址：</span>
+			<input class="email_input" type="email" name="email" id="email"   ng-model="email_num"  ng-pattern="/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/" ng-class="{'error':orderForm.email.$dirty && orderForm.email.$invalid}" required>
+			<!--<input class="email_input" type="email" name="email" id="email"  ng-pattern=" /	\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/" ng-class="{'error':orderForm.email.$dirty && orderForm.email.$invalid}" required>-->
+			<ul class="email_button_group inline-style" >
+				<li><button  type="button" id="cancel_send" ng-click="cancelWindow()">取消</button>
+				<li><button type="submit" ng-click="submit_email()">确认</button>
+			</ul>
+		</div>
+		</form>
+	</div>
+	<div style="background-color: #fff;padding-bottom: 0.5rem ;padding-top: 0.2rem">
+		<div class="damageDes" >理赔说明</div>
+		<div class="damageDetailDes" style="color: rgb(255,108,1);">本产品由华泰保险承包并负责理赔</div>
+		<ul>
+			<li class="damageDetailDes">报案拨打 4006095509</li>
+			<li class="damageDetailDes"><img  src="image/1.png"/></li>
+			<li class="damageDetailDes">准备理赔材料</li>
+			<li class="damageDetailDes"><img  src="image/1.png"/></li>
+			<li class="damageDetailDes">审核及调查，并作出理赔决定</li>
+			<li class="damageDetailDes"><img  src="image/1.png"/></li>
+			<li class="damageDetailDes">通过审核后，按照保险合同的约定进行赔付</li>
+		</ul>
+	</div>
+
+	<div class="screen_cover" style="display: block;" ng-show="emailWaitLabel" >
+		<div class="spinner" >
+			<div class="spinner-container container1">
+				<div class="circle1"></div>
+				<div class="circle2"></div>
+				<div class="circle3"></div>
+				<div class="circle4"></div>
+			</div>
+			<div class="spinner-container container2">
+				<div class="circle1"></div>
+				<div class="circle2"></div>
+				<div class="circle3"></div>
+				<div class="circle4"></div>
+			</div>
+			<div class="spinner-container container3">
+				<div class="circle1"></div>
+				<div class="circle2"></div>
+				<div class="circle3"></div>
+				<div class="circle4"></div>
+			</div>
+		</div>
+	</div>
+
+
+	<div ng-show="emailResultLabel" class="screen_cover"  style="display:block; ">
+		<div class="email_div">
+			<div  class="email_content"  >
+				<span style="width: 0.8rem; height:0.8rem; display: inline-block"><img src="image/payOk.png" alt=""  style="max-width: 100%;"></span>
+				<span style="font-size: 0.4rem;margin-left: 0.1rem">邮箱发送成功</span>
+			</div>
+			<div  class="email_goto" ><!--ui-sref="orderDetail({orderNumber:orderDetailData.orderNo})" -->
+				<div ng-click="orderPageDisplay()" style="width: 48%;height: 0.6rem;line-height:0.6rem;float: right;border:1px solid #24b98d;color: #24b98d;">返回</div>
+			</div>
+		</div>
+	</div>
+	
